@@ -14,7 +14,7 @@
             align-items: center;
             background-color: #ffe4e1;
             font-family: 'Arial', sans-serif;
-            overflow: hidden; /* Prevents the screen from shaking */
+            overflow: hidden;
         }
         #container {
             text-align: center;
@@ -29,6 +29,7 @@
             width: 100%;
             border-radius: 15px;
             margin-bottom: 20px;
+            transition: 0.5s ease; /* Makes the image swap look smooth */
         }
         h1 { color: #d63384; font-size: 1.5rem; }
         .btn-box {
@@ -36,6 +37,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
+            min-height: 50px;
         }
         button {
             padding: 15px 30px;
@@ -45,20 +47,20 @@
             cursor: pointer;
             font-weight: bold;
         }
-        #yesBtn { background-color: #ff4d6d; color: white; }
+        #yesBtn { background-color: #ff4d6d; color: white; z-index: 10; }
         #noBtn {
             background-color: #6c757d;
             color: white;
-            position: fixed; /* THIS allows it to move everywhere */
+            position: fixed;
             transition: 0.15s;
-            touch-action: none; /* Crucial for mobile */
+            touch-action: none;
         }
     </style>
 </head>
 <body>
 
 <div id="container">
-    <img src="https://i.ibb.co/rRFcq7gV/IMG-20260117-WA0143.jpg" alt="Rashi">
+    <img id="mainImage" src="https://i.ibb.co/rRFcq7gV/IMG-20260117-WA0143.jpg" alt="Rashi">
     <h1 id="mainText">Rashi Sharma, will you be my Valentine?</h1>
     <div class="btn-box">
         <button id="yesBtn">Yes</button>
@@ -70,32 +72,34 @@
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
     const mainText = document.getElementById('mainText');
+    const mainImg = document.getElementById('mainImage');
 
-    // Function to calculate a random position
     function teleport() {
         const padding = 50;
         const maxX = window.innerWidth - noBtn.offsetWidth - padding;
         const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-        
         const randomX = Math.floor(Math.random() * maxX);
         const randomY = Math.floor(Math.random() * maxY);
-
         noBtn.style.left = randomX + 'px';
         noBtn.style.top = randomY + 'px';
     }
 
-    // Triggers
-    noBtn.addEventListener('mouseover', teleport); // For laptop
+    noBtn.addEventListener('mouseover', teleport);
     noBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // Stops the actual "click" on mobile
+        e.preventDefault();
         teleport();
     });
 
     yesBtn.addEventListener('click', () => {
         mainText.innerHTML = "I knew you'd say Yes! ❤️";
+        
+        // --- CUSTOMIZATION START ---
+        // Replace the link below with your "Success" photo!
+        mainImg.src = "https://i.ibb.co/1G2Q2mcv/IMG-20250802-WA0059-1.jpg"; 
+        // --- CUSTOMIZATION END ---
+
         noBtn.style.display = 'none';
-        // Add a nice animation
-        yesBtn.style.transform = "scale(2)";
+        yesBtn.style.transform = "scale(1.5)";
         yesBtn.style.transition = "0.5s";
     });
 </script>

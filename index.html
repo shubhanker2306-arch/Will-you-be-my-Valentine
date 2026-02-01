@@ -2,79 +2,103 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Rashi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Special Delivery for Rashi</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #ffe4e1; /* Soft Pink */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-            overflow: hidden;
+            background-color: #ffe4e1;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden; /* Prevents the screen from shaking */
         }
         #container {
+            text-align: center;
             background: white;
-            padding: 40px;
+            padding: 2rem;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: all 0.5s ease;
+            width: 85%;
+            max-width: 400px;
         }
-        h1 { color: #d63384; margin-bottom: 30px; }
-        .buttons { display: flex; justify-content: center; gap: 20px; align-items: center; }
+        img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        h1 { color: #d63384; font-size: 1.5rem; }
+        .btn-box {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
         button {
             padding: 15px 30px;
-            font-size: 1.2rem;
-            border-radius: 10px;
+            font-size: 1.1rem;
             border: none;
+            border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.2s;
+            font-weight: bold;
         }
         #yesBtn { background-color: #ff4d6d; color: white; }
         #noBtn {
             background-color: #6c757d;
             color: white;
-            position: absolute; /* Allows it to move freely */
+            position: fixed; /* THIS allows it to move everywhere */
+            transition: 0.15s;
+            touch-action: none; /* Crucial for mobile */
         }
-        img { width: 150px; border-radius: 10px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-    <div id="container">
-        <img id="mainGif" src="https://i.ibb.co/rRFcq7gV/IMG-20260117-WA0143.jpg" alt="For Rashi">
-        <h1 id="question">Rashi Sharma, will you be my Valentine?</h1>
-        <div class="buttons">
-            <button id="yesBtn">Yes</button>
-            <button id="noBtn">No</button>
-        </div>
+<div id="container">
+    <img src="https://i.ibb.co/C3X1H7R/IMG-20250624-WA0016.jpg" alt="Rashi">
+    <h1 id="mainText">Rashi Sharma, will you be my Valentine?</h1>
+    <div class="btn-box">
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
     </div>
+</div>
 
-    <script>
-        const noBtn = document.getElementById('noBtn');
-        const yesBtn = document.getElementById('yesBtn');
-        const question = document.getElementById('question');
-        const mainGif = document.getElementById('mainGif');
+<script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const mainText = document.getElementById('mainText');
 
-        // Logic to make the 'No' button run away
-        noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            
-            noBtn.style.left = ${x}px;
-            noBtn.style.top = ${y}px;
-        });
+    // Function to calculate a random position
+    function teleport() {
+        const padding = 50;
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+        
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
 
-        // What happens when she clicks 'Yes'
-        yesBtn.addEventListener('click', () => {
-            question.innerHTML = "YAY! Can't wait, Rashi! ❤️";
-            // Replace with a celebratory GIF or your custom video link
-            mainGif.src = "https://i.ibb.co/1G2Q2mcv/IMG-20250802-WA0059-1.jpg";
-            noBtn.style.display = 'none';
-        });
-    </script>
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+    }
+
+    // Triggers
+    noBtn.addEventListener('mouseover', teleport); // For laptop
+    noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Stops the actual "click" on mobile
+        teleport();
+    });
+
+    yesBtn.addEventListener('click', () => {
+        mainText.innerHTML = "I knew you'd say Yes! ❤️";
+        noBtn.style.display = 'none';
+        // Add a nice animation
+        yesBtn.style.transform = "scale(2)";
+        yesBtn.style.transition = "0.5s";
+    });
+</script>
+
 </body>
 </html>

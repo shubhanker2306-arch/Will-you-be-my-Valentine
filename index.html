@@ -3,77 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Rashi Sharma ❤️</title>
+    <title>For Rashi</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #ffe4e1; /* Aesthetic Light Pink */
+            margin: 0;
+            background-color: #ffe4e1; /* Soft Pink */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden; /* Prevents scrolling when the button moves */
-        }
-        #card {
-            background: white;
-            padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             text-align: center;
-            max-width: 350px;
-            width: 90%;
-            z-index: 10;
+            overflow: hidden;
         }
-        img {
-            width: 100%;
-            max-width: 250px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        #container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
         }
-        h1 {
-            color: #d63384;
-            font-size: 1.6rem;
-            margin-bottom: 25px;
-        }
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            height: 50px;
-            position: relative;
-        }
+        h1 { color: #d63384; margin-bottom: 30px; }
+        .buttons { display: flex; justify-content: center; gap: 20px; align-items: center; }
         button {
-            padding: 12px 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 10px;
             border: none;
-            border-radius: 12px;
             cursor: pointer;
-            transition: transform 0.1s;
+            transition: transform 0.2s;
         }
-        #yesBtn {
-            background-color: #ff4d6d;
-            color: white;
-            z-index: 11;
-        }
+        #yesBtn { background-color: #ff4d6d; color: white; }
         #noBtn {
             background-color: #6c757d;
             color: white;
-            position: absolute;
-            transition: 0.2s ease;
+            position: absolute; /* Allows it to move freely */
         }
+        img { width: 150px; border-radius: 10px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-    <div id="card">
-        <img id="displayImg" src="https://i.ibb.co/rRFcq7gV/IMG-20260117-WA0143.jpg" alt="Rashi Sharma">
-        <h1 id="text">Rashi Sharma, will you be my Valentine?</h1>
-        
-        <div class="btn-container">
+    <div id="container">
+        <img id="mainGif" src="https://i.ibb.co/rRFcq7gV/IMG-20260117-WA0143.jpg" alt="For Rashi">
+        <h1 id="question">Rashi Sharma, will you be my Valentine?</h1>
+        <div class="buttons">
             <button id="yesBtn">Yes</button>
             <button id="noBtn">No</button>
         </div>
@@ -82,33 +56,24 @@
     <script>
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
-        const text = document.getElementById('text');
-        const img = document.getElementById('displayImg');
+        const question = document.getElementById('question');
+        const mainGif = document.getElementById('mainGif');
 
-        // Logic to make the 'No' button run away on Hover or Touch
-        const moveButton = () => {
-            // Screen boundaries
+        // Logic to make the 'No' button run away
+        noBtn.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             
-            noBtn.style.position = 'fixed';
             noBtn.style.left = ${x}px;
             noBtn.style.top = ${y}px;
-        };
-
-        noBtn.addEventListener('mouseover', moveButton);
-        noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Prevents clicking on mobile
-            moveButton();
         });
 
-        // Success Action
+        // What happens when she clicks 'Yes'
         yesBtn.addEventListener('click', () => {
-            text.innerHTML = "YAY! Love you, Rashi! ❤️";
-            // Optional: Replace image with a celebratory GIF
-            img.src = "https://i.ibb.co/1G2Q2mcv/IMG-20250802-WA0059-1.jpg";
+            question.innerHTML = "YAY! Can't wait, Rashi! ❤️";
+            // Replace with a celebratory GIF or your custom video link
+            mainGif.src = "https://i.ibb.co/1G2Q2mcv/IMG-20250802-WA0059-1.jpg";
             noBtn.style.display = 'none';
-            yesBtn.style.transform = "scale(1.2)";
         });
     </script>
 </body>
